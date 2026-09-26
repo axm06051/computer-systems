@@ -3,7 +3,6 @@
   const main = document.querySelector('.col-md-9[role="main"]');
   if (!main) return;
 
-  const pageKey = `${storagePrefix}complete:${location.pathname}`;
   const create = (tag, className, text) => {
     const node = document.createElement(tag);
     if (className) node.className = className;
@@ -13,7 +12,27 @@
 
   const nav = document.querySelector('.bs-sidebar');
   const current = nav?.querySelector('.nav-link.active, .nav-link[aria-current="page"]');
+  const header = document.querySelector('header.navbar, nav.navbar');
 
+  // Keep the generated MkDocs navigation as the canonical book navigation.
+  // Add only stable utility links to the real Bootstrap navbar.
+  if (header) {
+    const navList = header.querySelector('.navbar-nav');
+    const utilities = [
+      ["Roadmap", "ROADMAP.html"],
+      ["Assets", "INTERACTIVE-ASSETS.html"],
+    ];
+    utilities.forEach(([label, path]) => {
+      if (!navList || [...navList.querySelectorAll('a')].some(a => a.textContent.trim() === label)) return;
+      const item = create('li', 'nav-item');
+      const link = create('a', 'nav-link', label);
+      link.href = new URL(path, document.baseURI).href;
+      item.appendChild(link);
+      navList.appendChild(item);
+    });
+  }
+
+  const pageKey = `${storagePrefix}complete:${location.pathname}`;
   const toolbar = create('div', 'book-toolbar border rounded-3 p-2 mb-4');
   toolbar.setAttribute('aria-label', 'Book controls');
   const controls = create('div', 'd-flex flex-wrap align-items-center gap-2');
@@ -117,6 +136,20 @@
       pager.appendChild(link);
     }
     main.appendChild(pager);
+  }
+
+  // The repository belongs in the footer, not in the primary reading navigation.
+  const footer = document.querySelector('footer') || document.body.appendChild(create('footer', 'mt-5'));
+  if (!footer.querySelector('[data-book-repository]')) {
+    const wrapper = create('div', 'container-fluid px-0 d-flex flex-wrap justify-content-between align-items-center gap-2');
+    const label = create('span', 'small text-body-secondary', 'Computer Systems: From Logic Gates to Operating Systems');
+    const repo = create('a', 'small text-decoration-none', 'Source repository');
+    repo.dataset.bookRepository = 'true';
+    repo.href = 'https://github.com/axm06051/computer-systems';
+    repo.target = '_blank';
+    repo.rel = 'noopener noreferrer';
+    wrapper.append(label, repo);
+    footer.appendChild(wrapper);
   }
 
   const updateProgress = () => {
