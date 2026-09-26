@@ -1,8 +1,6 @@
-/* Bootstrap 5.3 book styling. Keep Bootstrap's component system while protecting MkDocs' document structure. */
-
 :root {
-  --book-max-width: 1440px;
-  --book-sidebar-width: 18rem;
+  --book-width: 90rem;
+  --book-sidebar: 18rem;
 }
 
 html {
@@ -17,25 +15,25 @@ body {
   line-height: 1.65;
 }
 
-/* MkDocs shell. Do not use Bootstrap's .container rules here: MkDocs owns this structure. */
+#container {
+  width: min(100%, var(--book-width));
+  margin: 0 auto;
+}
+
 #header {
   position: sticky;
   top: 0;
   z-index: 1030;
-  min-height: 3.75rem;
-  padding: 0;
   background: var(--bs-body-bg);
-  color: var(--bs-body-color);
   border-bottom: 1px solid var(--bs-border-color);
 }
 
-#header .container,
-#header > div {
-  max-width: var(--book-max-width);
+#header > div,
+#header-inner {
   width: 100%;
   min-height: 3.75rem;
-  margin: 0 auto;
-  padding: 0 1.25rem;
+  box-sizing: border-box;
+  padding: .65rem 1.25rem;
   display: flex;
   align-items: center;
   gap: 1rem;
@@ -43,55 +41,36 @@ body {
 
 #site_name {
   margin: 0;
-  color: var(--bs-emphasis-color);
+  flex: 1 1 auto;
+  min-width: 0;
   font-size: 1rem;
   font-weight: 600;
   line-height: 1.25;
-  white-space: nowrap;
 }
 
 #site_name a,
-#header a,
-#header a:visited {
-  color: inherit;
+#site_name a:visited,
+#header a {
+  color: var(--bs-emphasis-color);
   text-decoration: none;
 }
 
 #theme-controls {
-  margin-left: auto;
   display: inline-flex;
   flex: 0 0 auto;
-  gap: 0;
 }
 
 #theme-controls .btn {
-  --bs-btn-padding-y: .3rem;
-  --bs-btn-padding-x: .65rem;
-  --bs-btn-font-size: .8rem;
-  border-radius: 0;
-}
-
-#theme-controls .btn:first-child {
-  border-radius: var(--bs-border-radius) 0 0 var(--bs-border-radius);
-}
-
-#theme-controls .btn:last-child {
-  border-radius: 0 var(--bs-border-radius) var(--bs-border-radius) 0;
-}
-
-#container {
-  width: min(100%, var(--book-max-width));
-  margin: 0 auto;
-  display: grid;
-  grid-template-columns: var(--book-sidebar-width) minmax(0, 1fr);
-  align-items: start;
+  white-space: nowrap;
 }
 
 #navigation {
-  position: sticky;
+  position: fixed;
   top: 3.75rem;
-  height: calc(100vh - 3.75rem);
+  bottom: 0;
+  width: var(--book-sidebar);
   overflow-y: auto;
+  box-sizing: border-box;
   padding: 1.25rem .75rem 2rem;
   background: var(--bs-body-bg);
   border-right: 1px solid var(--bs-border-color);
@@ -99,24 +78,27 @@ body {
 
 #navigation ul,
 #navigation ol {
-  margin-top: 0;
-  padding-left: 0;
+  margin: 0;
+  padding: 0;
   list-style: none;
+}
+
+#navigation ul ul,
+#navigation ol ol,
+#navigation li ul,
+#navigation li ol {
+  padding-left: .75rem;
 }
 
 #navigation li {
   margin: 0;
 }
 
-#navigation li ul,
-#navigation li ol {
-  padding-left: .75rem;
-}
-
 #navigation a {
   display: block;
+  margin: 1px 0;
   padding: .4rem .65rem;
-  border-radius: var(--bs-border-radius);
+  border-radius: .375rem;
   color: var(--bs-secondary-color);
   font-size: .875rem;
   line-height: 1.35;
@@ -124,46 +106,24 @@ body {
 }
 
 #navigation a:hover,
-#navigation a:focus-visible {
+#navigation a:focus-visible,
+#navigation a.active,
+#navigation a.current {
   color: var(--bs-emphasis-color);
   background: var(--bs-tertiary-bg);
 }
 
 #navigation a.active,
 #navigation a.current {
-  color: var(--bs-emphasis-color);
-  background: var(--bs-tertiary-bg);
   font-weight: 600;
 }
 
 #content {
+  box-sizing: border-box;
   min-width: 0;
-  max-width: 62rem;
-  width: 100%;
-  margin: 0 auto;
-  padding: 3rem clamp(1.25rem, 4vw, 4rem) 5rem;
-}
-
-/* Restore document semantics after Bootstrap's reboot. */
-#content p {
-  margin-top: 0;
-  margin-bottom: 1rem;
-}
-
-#content ul,
-#content ol {
-  margin-top: 0;
-  margin-bottom: 1rem;
-  padding-left: 2rem;
-}
-
-#content li > ul,
-#content li > ol {
-  margin-bottom: 0;
-}
-
-#content dl {
-  margin-bottom: 1rem;
+  margin-left: var(--book-sidebar);
+  max-width: 76rem;
+  padding: 3rem clamp(1.25rem, 5vw, 5rem) 5rem;
 }
 
 #content h1,
@@ -173,75 +133,53 @@ body {
 #content h5,
 #content h6 {
   color: var(--bs-emphasis-color);
-  font-weight: 600;
   line-height: 1.25;
+  font-weight: 600;
 }
 
 #content h1 {
-  margin-top: 0;
-  margin-bottom: 2rem;
+  margin: 0 0 2rem;
   padding-bottom: .75rem;
   border-bottom: 1px solid var(--bs-border-color);
 }
 
-#content h2 {
-  margin-top: 3rem;
-  margin-bottom: 1rem;
-}
-
-#content h3 {
-  margin-top: 2rem;
-  margin-bottom: 1rem;
-}
-
+#content h2 { margin: 3rem 0 1rem; }
+#content h3 { margin: 2rem 0 1rem; }
 #content h4,
 #content h5,
-#content h6 {
-  margin-top: 1.5rem;
-  margin-bottom: .75rem;
+#content h6 { margin: 1.5rem 0 .75rem; }
+
+#content p { margin: 0 0 1rem; }
+
+#content ul,
+#content ol {
+  margin: 0 0 1rem;
+  padding-left: 2rem;
 }
 
-#content a {
-  color: var(--bs-link-color);
-}
+#content li > ul,
+#content li > ol { margin-bottom: 0; }
 
-#content img {
-  max-width: 100%;
-  height: auto;
-}
-
-#content hr {
-  margin: 2rem 0;
-  border: 0;
-  border-top: 1px solid var(--bs-border-color);
-  opacity: 1;
-}
-
-#content pre,
-#content code,
-#content kbd,
-#content samp {
-  font-family: var(--bs-font-monospace);
-}
-
-#content code {
-  color: var(--bs-code-color);
-  word-wrap: break-word;
-}
+#content a { color: var(--bs-link-color); }
+#content img { max-width: 100%; height: auto; }
 
 #content pre {
   margin: 1.25rem 0;
   padding: 1rem;
   overflow: auto;
-  background: var(--bs-tertiary-bg);
   color: var(--bs-body-color);
+  background: var(--bs-tertiary-bg);
   border: 1px solid var(--bs-border-color);
-  border-radius: var(--bs-border-radius);
+  border-radius: .375rem;
 }
+
+#content code,
+#content pre,
+#content kbd,
+#content samp { font-family: var(--bs-font-monospace); }
 
 #content pre code {
   color: inherit;
-  word-break: normal;
   white-space: pre;
 }
 
@@ -249,22 +187,17 @@ body {
   width: 100%;
   margin-bottom: 1rem;
   border-collapse: collapse;
-  --bs-table-bg: var(--bs-body-bg);
-  --bs-table-color: var(--bs-body-color);
 }
 
 #content th,
 #content td {
-  padding: .5rem .75rem;
+  padding: .55rem .75rem;
   border: 1px solid var(--bs-border-color);
-  text-align: left;
   vertical-align: top;
+  text-align: left;
 }
 
-#content th {
-  font-weight: 600;
-  background: var(--bs-tertiary-bg);
-}
+#content th { background: var(--bs-tertiary-bg); }
 
 #content blockquote {
   margin: 1.5rem 0;
@@ -276,69 +209,58 @@ body {
 #content .admonition {
   margin: 1.25rem 0;
   padding: 1rem 1.25rem;
-  border: 1px solid var(--bs-border-color);
-  border-radius: var(--bs-border-radius);
   background: var(--bs-tertiary-bg);
+  border: 1px solid var(--bs-border-color);
+  border-radius: .375rem;
 }
 
 #footer {
-  grid-column: 1 / -1;
-  padding: 1.5rem 1.25rem;
-  border-top: 1px solid var(--bs-border-color);
+  margin-left: var(--book-sidebar);
+  padding: 1.5rem 2rem;
   color: var(--bs-secondary-color);
   background: var(--bs-body-bg);
+  border-top: 1px solid var(--bs-border-color);
 }
 
 @media (max-width: 991.98px) {
-  #container {
-    display: block;
-  }
-
   #navigation {
     position: static;
-    height: auto;
+    width: auto;
     max-height: 45vh;
     border-right: 0;
     border-bottom: 1px solid var(--bs-border-color);
   }
 
-  #content {
-    padding-top: 2rem;
+  #content,
+  #footer {
+    margin-left: 0;
   }
+
+  #content { padding-top: 2rem; }
 }
 
 @media (max-width: 575.98px) {
-  #header .container,
-  #header > div {
-    min-height: 3.5rem;
+  #header > div,
+  #header-inner {
     padding: .6rem .75rem;
   }
 
-  #site_name {
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-
   #theme-controls .btn {
-    padding-left: .45rem;
-    padding-right: .45rem;
+    padding: .25rem .45rem;
     font-size: .75rem;
   }
 
-  #content {
-    padding: 1.5rem 1rem 3rem;
-  }
+  #content { padding: 1.5rem 1rem 3rem; }
 }
 
 @media print {
   #header,
   #navigation,
   #footer,
-  #theme-controls {
-    display: none !important;
-  }
+  #theme-controls { display: none !important; }
 
   #content {
+    margin: 0;
     max-width: none;
     padding: 0;
   }
