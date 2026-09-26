@@ -104,3 +104,15 @@ body {
 .md-sidebar__scrollwrap {
   scrollbar-width: auto;
 }
+
+/* Bootstrap must not introduce visual transitions or fades into the book UI. */
+*,
+*::before,
+*::after {
+  transition: none !important;
+  animation: none !important;
+}
+
+.fade {
+  opacity: 1 !important;
+}
