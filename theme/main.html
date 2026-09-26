@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-bs-theme="light">
+<html lang="en" data-theme="system">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -7,101 +7,91 @@
   {% if config.site_author %}<meta name="author" content="{{ config.site_author }}">{% endif %}
   {% if page and page.canonical_url %}<link rel="canonical" href="{{ page.canonical_url }}">{% endif %}
   <title>{% if page and page.title and not page.is_homepage %}{{ page.title }} · {% endif %}{{ config.site_name }}</title>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
   <link rel="stylesheet" href="{{ 'theme/book.css'|url }}">
   {% for path in config.extra_css %}<link rel="stylesheet" href="{{ path|url }}">{% endfor %}
-  {% if config.theme.favicon %}<link rel="icon" href="{{ config.theme.favicon|url }}">{% endif %}
 </head>
 <body>
-  <a class="visually-hidden-focusable position-fixed top-0 start-0 z-3 p-2 bg-body border rounded" href="#book-content">Skip to content</a>
-
-  <header class="navbar navbar-expand-lg border-bottom sticky-top bg-body">
-    <div class="container-fluid px-3 px-lg-4">
-      <a class="navbar-brand fw-semibold text-body-emphasis" href="{{ nav.homepage.url|url }}">{{ config.site_name }}</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#book-navbar" aria-controls="book-navbar" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="book-navbar">
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          {% for item in nav %}
-            {% if item == nav.homepage %}
-              <li class="nav-item"><a class="nav-link{% if item.active %} active{% endif %}" href="{{ item.url|url }}"{% if item.active %} aria-current="page"{% endif %}>Home</a></li>
-            {% elif item.is_section %}
-              <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">{{ item.title }}</a>
-                <ul class="dropdown-menu">
-                  {% for child in item.children %}
-                    {% if child.is_page %}<li><a class="dropdown-item{% if child.active %} active{% endif %}" href="{{ child.url|url }}">{{ child.title }}</a></li>
-                    {% else %}<li><span class="dropdown-header">{{ child.title }}</span></li>{% endif %}
-                  {% endfor %}
-                </ul>
-              </li>
-            {% endif %}
-          {% endfor %}
-        </ul>
-        <form class="d-flex me-lg-3" id="book-search" role="search">
-          <label class="visually-hidden" for="book-search-input">Search the book</label>
-          <input id="book-search-input" class="form-control form-control-sm" type="search" placeholder="Search the book" autocomplete="off">
-        </form>
-        <div class="btn-group btn-group-sm" role="group" aria-label="Color theme">
-          <button class="btn btn-outline-secondary" type="button" data-theme="light">Light</button>
-          <button class="btn btn-outline-secondary" type="button" data-theme="dark">Dark</button>
-          <button class="btn btn-outline-secondary" type="button" data-theme="system">System</button>
+  <a class="skip-link" href="#book-content">Skip to content</a>
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="site-title" href="{{ nav.homepage.url|url }}">{{ config.site_name }}</a>
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="primary-nav">Menu</button>
+      <nav id="primary-nav" class="primary-nav" aria-label="Primary navigation">
+        {% for item in nav %}
+          {% if item == nav.homepage %}
+            <a class="primary-link{% if item.active %} active{% endif %}" href="{{ item.url|url }}">Home</a>
+          {% elif item.is_section %}
+            <details class="nav-section">
+              <summary>{{ item.title }}</summary>
+              <div class="nav-panel">
+                {% for child in item.children %}
+                  {% if child.is_page %}<a class="nav-panel-link{% if child.active %} active{% endif %}" href="{{ child.url|url }}">{{ child.title }}</a>{% endif %}
+                {% endfor %}
+              </div>
+            </details>
+          {% endif %}
+        {% endfor %}
+      </nav>
+      <div class="header-tools">
+        <button class="search-button" type="button" aria-controls="search-dialog" aria-expanded="false">Search</button>
+        <div class="theme-switcher" role="group" aria-label="Color theme">
+          <button type="button" data-theme="light">Light</button>
+          <button type="button" data-theme="dark">Dark</button>
+          <button type="button" data-theme="system">System</button>
         </div>
       </div>
     </div>
   </header>
 
-  <div id="book-search-results" class="container-fluid d-none" aria-live="polite">
-    <div class="row justify-content-center"><div class="col-xl-8 py-3"><div class="list-group shadow-sm" id="book-search-list"></div></div></div>
+  <dialog id="search-dialog" class="search-dialog">
+    <form method="dialog" class="search-form">
+      <label for="search-input">Search the book</label>
+      <input id="search-input" type="search" autocomplete="off" placeholder="Search chapters and appendices">
+      <button value="close">Close</button>
+    </form>
+    <div id="search-results" class="search-results" aria-live="polite"></div>
+  </dialog>
+
+  <div class="book-layout">
+    <aside class="book-sidebar">
+      <div class="sidebar-title">Contents</div>
+      <nav aria-label="Book contents">
+        {% macro sidebar(items) %}
+          <ul>
+          {% for item in items %}
+            {% if item.is_section %}
+              <li class="sidebar-section"><span>{{ item.title }}</span>{{ sidebar(item.children) }}</li>
+            {% elif item.is_page %}
+              <li><a class="{% if item.active %}active{% endif %}" href="{{ item.url|url }}">{{ item.title }}</a></li>
+            {% endif %}
+          {% endfor %}
+          </ul>
+        {% endmacro %}
+        {{ sidebar(nav) }}
+      </nav>
+    </aside>
+
+    <main id="book-content" class="book-content" tabindex="-1">
+      <div class="reading-meta">{% if page and page.parent %}{{ page.parent.title }}{% endif %}</div>
+      <article>
+        {{ page.content }}
+      </article>
+      <nav id="book-pager" class="book-pager" aria-label="Chapter navigation"></nav>
+    </main>
+
+    <aside class="page-toc" aria-label="On this page">
+      {% if toc %}<div class="toc-title">On this page</div>{{ toc }}{% endif %}
+    </aside>
   </div>
 
-  <div class="container-fluid">
-    <div class="row">
-      <aside class="col-lg-3 col-xl-2 border-end book-sidebar">
-        <nav class="py-4" aria-label="Book navigation">
-          {% macro sidebar(items) %}
-            <ul class="nav flex-column gap-1{% if loop.depth0 > 0 %} ms-2 border-start ps-2{% endif %}">
-            {% for item in items %}
-              {% if item.is_section %}
-                <li class="nav-item mt-3"><div class="small fw-semibold text-uppercase text-body-secondary px-2 mb-1">{{ item.title }}</div>{{ sidebar(item.children) }}</li>
-              {% elif item.is_page %}
-                <li class="nav-item"><a class="nav-link{% if item.active %} active{% endif %}" href="{{ item.url|url }}"{% if item.active %} aria-current="page"{% endif %}>{{ item.title }}</a></li>
-              {% endif %}
-            {% endfor %}
-            </ul>
-          {% endmacro %}
-          {{ sidebar(nav) }}
-        </nav>
-      </aside>
-
-      <main id="book-content" class="col-lg-9 col-xl-8 mx-auto book-content" tabindex="-1">
-        <div class="book-reading py-4 py-lg-5">
-          {% if page and page.parent %}<div class="small text-body-secondary mb-3">{{ page.parent.title }} / {{ page.title }}</div>{% endif %}
-          <article>
-            {{ page.content }}
-          </article>
-          <nav id="book-pager" class="d-flex justify-content-between gap-3 border-top mt-5 pt-4" aria-label="Chapter navigation"></nav>
-        </div>
-      </main>
-
-      <aside class="d-none d-xl-block col-xl-2 book-toc border-start">
-        {% if toc %}<div class="sticky-top py-4" style="top: 4.5rem"><div class="small fw-semibold text-body-secondary mb-2">On this page</div>{{ toc }}</div>{% endif %}
-      </aside>
-    </div>
-  </div>
-
-  <footer class="border-top mt-5 py-4 bg-body-tertiary">
-    <div class="container-fluid px-3 px-lg-4 d-flex flex-wrap justify-content-between align-items-center gap-2">
-      <div><div class="fw-semibold">{{ config.site_name }}</div><div class="small text-body-secondary">University-level computer systems textbook.</div></div>
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div><strong>{{ config.site_name }}</strong><span>University-level computer systems textbook.</span></div>
       <a href="{{ config.repo_url }}" target="_blank" rel="noopener noreferrer">Source repository</a>
     </div>
   </footer>
 
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwxH9j09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+  <script>window.BOOK_CONFIG = { searchIndex: {{ 'search/search_index.json'|url|tojson }} };</script>
   {% for script in config.extra_javascript %}{{ script|script_tag }}{% endfor %}
-  <script>
-    window.BOOK_CONFIG = { searchIndex: {{ 'search/search_index.json'|url|tojson }}, home: {{ nav.homepage.url|url|tojson }} };
-  </script>
 </body>
 </html>
