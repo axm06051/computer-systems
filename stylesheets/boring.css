@@ -1,8 +1,4 @@
-/*
- * Minimal book styling.
- * Material for MkDocs owns palette state and colors.
- * Bootstrap supplies utilities/components; this file only controls layout and type.
- */
+/* Minimal book styling. Material owns theme colors. */
 
 html {
   scroll-behavior: auto;
@@ -42,18 +38,14 @@ body {
   text-underline-offset: 0.15em;
 }
 
-.md-typeset code {
-  border: 1px solid var(--md-default-fg-color--lightest);
-  border-radius: 0.15rem;
-}
-
-.md-typeset pre > code {
+.md-typeset code,
+.md-typeset pre > code,
+.md-typeset table:not([class]) {
   border: 1px solid var(--md-default-fg-color--lightest);
   border-radius: 0.15rem;
 }
 
 .md-typeset table:not([class]) {
-  border: 1px solid var(--md-default-fg-color--lightest);
   box-shadow: none;
 }
 
@@ -62,11 +54,7 @@ body {
 }
 
 .md-typeset .admonition,
-.md-typeset details {
-  border-radius: 0.15rem;
-  box-shadow: none;
-}
-
+.md-typeset details,
 .md-header,
 .md-tabs,
 .md-footer,
@@ -74,7 +62,37 @@ body {
   box-shadow: none;
 }
 
-/* Keep Bootstrap from adding presentation effects that conflict with the book. */
+.theme-controls {
+  display: flex;
+  align-items: center;
+  gap: 0.15rem;
+  margin-left: 0.5rem;
+}
+
+.theme-controls button {
+  padding: 0.25rem 0.45rem;
+  border: 1px solid transparent;
+  border-radius: 0.15rem;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+  font: inherit;
+  font-size: 0.75rem;
+}
+
+.theme-controls button:hover,
+.theme-controls button:focus-visible,
+.theme-controls button.theme-choice-active {
+  border-color: currentColor;
+}
+
+@media (max-width: 600px) {
+  .theme-controls button {
+    padding-inline: 0.2rem;
+    font-size: 0.7rem;
+  }
+}
+
 *,
 *::before,
 *::after {
@@ -86,7 +104,6 @@ body {
   transition: none !important;
 }
 
-/* Preserve keyboard accessibility while keeping the presentation restrained. */
 :focus-visible {
   outline: 2px solid var(--md-accent-fg-color);
   outline-offset: 2px;
