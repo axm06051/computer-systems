@@ -6,6 +6,7 @@ from urllib.parse import urlparse
 ROOT = Path(__file__).resolve().parents[1]
 DOCS = ROOT / ".book-docs"
 SITE = ROOT / "site"
+SITE_PREFIX = "/computer-systems/"
 
 
 class WebBookTests(unittest.TestCase):
@@ -39,7 +40,10 @@ class WebBookTests(unittest.TestCase):
                 parsed = urlparse(target)
                 if parsed.scheme or parsed.netloc or target.startswith(("#", "data:", "javascript:")):
                     continue
-                path = parsed.path.lstrip("/")
+                path = parsed.path
+                if path.startswith(SITE_PREFIX):
+                    path = path[len(SITE_PREFIX):]
+                path = path.lstrip("/")
                 if not path:
                     continue
                 candidates = [SITE / path]
