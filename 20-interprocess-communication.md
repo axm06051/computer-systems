@@ -140,7 +140,7 @@ msg: .ascii "hello\n"
 ### 8.3 Architecture data
 
 | Interface | x86-64 Linux | AArch64 Linux |
-|---|---|---|
+| --- | --- | --- |
 | System-call entry instruction | `syscall` | `svc #0` |
 | System-call number register | `RAX` | `X8` |
 | First argument | `RDI` | `X0` |

@@ -1,11 +1,19 @@
 site_name: "Computer Systems: From Logic Gates to Operating Systems"
 site_description: A bottom-up introduction to processors, memory, processes, concurrency, networking, GPUs, virtualization, and operating systems.
 site_author: Adrian Mróz
+repo_url: https://github.com/axm06051/computer-systems
+repo_name: axm06051/computer-systems
+site_url: https://axm06051.github.io/computer-systems/
 
 docs_dir: .book-docs
 
 nav:
   - Home: index.md
+  - Book Guide:
+      - Roadmap: ROADMAP.md
+  - Interactive Teaching:
+      - Interactive Assets: INTERACTIVE-ASSETS.md
+      - Asset Directory: assets/index.html
   - Core Manuals:
       - 01. Transistor Operation and Logic Gates: 01-transistors.md
       - 02. Memory Circuits and Latches: 02-memory.md
@@ -42,6 +50,7 @@ nav:
       - K. Distributed and Real-Time Systems: APPENDIX-K-DISTRIBUTED-REAL-TIME-SYSTEMS.md
       - L. Troubleshooting: APPENDIX-L-TROUBLESHOOTING.md
       - M. Coverage Audit: APPENDIX-M-COVERAGE-AUDIT.md
+      - N. End-to-End Systems Capstones: APPENDIX-N-SYSTEMS-CAPSTONES.md
 
 theme:
   name: material
@@ -50,21 +59,31 @@ theme:
     - navigation.sections
     - navigation.top
     - navigation.indexes
-    - search.suggest
     - search.highlight
-    - content.code.copy
-    - toc.follow
+  font: false
+  logo: null
+  favicon: null
   palette:
-    - media: '(prefers-color-scheme: light)'
+    - media: "(prefers-color-scheme: light)"
       scheme: default
+      primary: white
+      accent: black
       toggle:
-        icon: material/brightness-7
+        icon: material/weather-sunny
         name: Switch to dark mode
-    - media: '(prefers-color-scheme: dark)'
+    - media: "(prefers-color-scheme: dark)"
       scheme: slate
+      primary: white
+      accent: white
       toggle:
-        icon: material/brightness-4
+        icon: material/weather-night
         name: Switch to light mode
+    - scheme: default
+      primary: white
+      accent: black
+      toggle:
+        icon: material/monitor
+        name: Follow system preference
 
 plugins:
   - search
@@ -72,6 +91,8 @@ plugins:
 markdown_extensions:
   - admonition
   - attr_list
+  - pymdownx.arithmatex:
+      generic: true
   - pymdownx.details
   - pymdownx.highlight
   - pymdownx.superfences:
@@ -79,5 +100,13 @@ markdown_extensions:
         - name: mermaid
           class: mermaid
           format: !!python/name:pymdownx.superfences.fence_code_format
-  - toc:
-      permalink: true
+  - toc
+
+extra_css:
+  - https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css
+  - stylesheets/boring.css
+
+extra_javascript:
+  - https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js
+  - scripts/mathjax.js
+  - https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js

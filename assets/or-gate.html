@@ -1,0 +1,36 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>OR Gate — Physical Preview</title><style>
+:root{font-family:system-ui,-apple-system,"Segoe UI",sans-serif;background:#000;color:#fff}
+*{box-sizing:border-box}body{margin:0;background:#000}.page{max-width:1125px;margin:auto;padding:28px 0 24px}
+h1{margin:0 24px 6px;font-size:27px;font-weight:650}.intro{margin:0 24px 24px;color:#c6c9ce;font-size:17px}.demo{padding:0 18px}
+svg{display:block;width:100%;height:auto;background:#000}.wire{fill:none;stroke:#62656a;stroke-width:6;stroke-linecap:round;stroke-linejoin:round}
+.node{fill:#000;stroke:#424346;stroke-width:5}.component{fill:#111;stroke:#62656a;stroke-width:5}
+.signal{fill:none;stroke:#f5b900;stroke-width:6;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:14 22;animation:flow .9s linear infinite;opacity:0}
+@keyframes flow{to{stroke-dashoffset:-36}}
+.controls{display:flex;justify-content:center;gap:12px;margin-top:14px}input{position:absolute;opacity:0;pointer-events:none}
+label{min-width:130px;padding:10px 18px;border:1px solid #4d4e51;border-radius:7px;background:#151515;color:#fff;font-weight:650;text-align:center;cursor:pointer;user-select:none}
+.state{text-align:center;min-height:28px;margin-top:14px;color:#c6c9ce;font-size:16px}.note{max-width:850px;margin:12px auto 0;color:#aeb3bb;font-size:14px;line-height:1.45;text-align:center}
+.on,.active{display:none}
+#a:checked~.demo .a-control,#b:checked~.demo .b-control,#a:checked~.demo .a-current,#b:checked~.demo .b-current,#a:checked~.demo .return-current,#b:checked~.demo .return-current{opacity:1}
+#a:checked~.demo .ta,#b:checked~.demo .tb,#a:checked~.demo .ain,#b:checked~.demo .bin,#a:checked~.demo .output-node,#b:checked~.demo .output-node{stroke:#f5b900}
+#a:checked~.demo .off,#b:checked~.demo .off{display:none}#a:checked~.demo .on,#b:checked~.demo .on{display:inline}
+</style></head><body><main class="page"><h1>OR gate</h1><p class="intro">Either input can turn on its transistor path. A conducting path reaches the common output node and then RETURN.</p>
+<input id="a" type="checkbox"><input id="b" type="checkbox"><section class="demo">
+<svg viewBox="0 0 1080 700" role="img" aria-label="Interactive transistor-based OR gate">
+<circle class="node" cx="540" cy="45" r="8"/><text fill="#fff" font-size="23" font-weight="700" text-anchor="middle" x="540" y="20">POWER</text>
+<path class="wire" d="M540 45 V95"/><rect class="component" x="500" y="95" width="80" height="75" rx="9"/><text fill="#fff" font-size="21" font-weight="700" text-anchor="middle" x="540" y="140">LOAD</text><path class="wire" d="M540 170 V220"/>
+<circle class="node" cx="540" cy="220" r="9"/><path class="wire" d="M540 220 H390 V300"/><path class="wire" d="M540 220 H690 V300"/>
+<rect class="component ta" x="350" y="300" width="80" height="100" rx="10"/><text fill="#fff" font-size="19" font-weight="700" text-anchor="middle" x="390" y="338">Q1</text><text fill="#aeb3bb" font-size="15" text-anchor="middle" x="390" y="365">TRANSISTOR</text><path class="wire" d="M390 400 V475"/>
+<rect class="component tb" x="650" y="300" width="80" height="100" rx="10"/><text fill="#fff" font-size="19" font-weight="700" text-anchor="middle" x="690" y="338">Q2</text><text fill="#aeb3bb" font-size="15" text-anchor="middle" x="690" y="365">TRANSISTOR</text><path class="wire" d="M690 400 V475"/>
+<circle class="node ain" cx="150" cy="350" r="34"/><text fill="#fff" font-size="19" font-weight="700" text-anchor="middle" dominant-baseline="middle" x="150" y="350">A</text><path class="wire" d="M184 350 H350"/><text fill="#aeb3bb" font-size="16" x="225" y="333">BASE</text>
+<circle class="node bin" cx="930" cy="350" r="34"/><text fill="#fff" font-size="19" font-weight="700" text-anchor="middle" dominant-baseline="middle" x="930" y="350">B</text><path class="wire" d="M896 350 H730"/><text fill="#aeb3bb" font-size="16" text-anchor="end" x="875" y="333">BASE</text>
+<path class="wire" d="M390 475 V520 H690 V475"/><circle class="node output-node" cx="540" cy="520" r="10"/><path class="wire" d="M550 520 H770"/><text fill="#fff" font-size="21" font-weight="700" text-anchor="middle" x="850" y="515">OUTPUT</text><text fill="#aeb3bb" font-size="17" text-anchor="middle" x="850" y="540">common node</text>
+<path class="wire" d="M540 520 V570"/><path class="wire" d="M500 570 H580"/><path class="wire" d="M512 582 H568"/><path class="wire" d="M524 594 H556"/><text fill="#c6c9ce" font-size="19" font-weight="600" text-anchor="middle" x="540" y="635">RETURN</text>
+<path class="signal a-control" d="M150 350 H350"/><path class="signal b-control" d="M930 350 H730"/>
+<path class="signal a-current" d="M540 45 V95"/><path class="signal a-current" d="M540 170 V220 H390 V300"/><path class="signal a-current" d="M390 400 V475 V520 H540"/>
+<path class="signal b-current" d="M540 45 V95"/><path class="signal b-current" d="M540 170 V220 H690 V300"/><path class="signal b-current" d="M690 400 V475 V520 H540"/>
+<path class="signal return-current" d="M540 520 V570"/>
+</svg>
+<div class="controls"><label for="a"><span class="off">Input A: OFF</span><span class="on">Input A: ON</span></label><label for="b"><span class="off">Input B: OFF</span><span class="on">Input B: ON</span></label></div>
+<div class="state"><span class="off">Both transistor paths are OFF. The load path is open.</span><span class="on">At least one input is ON. Its transistor path conducts.</span></div>
+<p class="note">POWER supplies the load. A and B control parallel transistor paths. Either conducting path completes the electrical path to RETURN. The common node is the output.</p>
+</section></main></body></html>
