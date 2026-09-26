@@ -54,7 +54,19 @@ nav:
 
 theme:
   name: mkdocs
+  custom_dir: overrides
   navigation_depth: 4
+  color_mode: auto
+  user_color_mode_toggle: true
+  nav_style: light
+  highlightjs: true
+  hljs_style: github
+  hljs_style_dark: github-dark
+  shortcuts:
+    help: 191
+    next: 78
+    previous: 80
+    search: 83
 
 plugins:
   - search
@@ -74,13 +86,10 @@ markdown_extensions:
   - toc
 
 extra_css:
-  - https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css
   - stylesheets/bootstrap-book.css
   - stylesheets/book-interactive.css
 
 extra_javascript:
-  - https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js
-  - scripts/bootstrap-theme.js
   - scripts/book.js
   - scripts/mathjax.js
   - https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js
