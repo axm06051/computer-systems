@@ -1,0 +1,31 @@
+<!doctype html><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Computer Systems Teaching Visuals</title>
+<style>body{font:16px system-ui;margin:0;background:#f6f6f6;color:#222}main{max-width:1000px;margin:auto;padding:18px}.card{background:#fff;border:1px solid #ccc;border-radius:10px;padding:18px}.diagram{min-height:260px;border:1px solid #ddd;border-radius:8px;padding:18px;overflow:auto}.row{display:flex;align-items:center;justify-content:center;gap:12px;flex-wrap:wrap;margin:70px 0}.box{min-width:125px;padding:18px 12px;border:2px solid #555;border-radius:9px;text-align:center;background:#f5f5f5;transition:.25s}.on{background:#dbeafe}.arrow{font-size:25px}.controls{display:flex;gap:8px;margin:12px 0;flex-wrap:wrap}button{padding:7px 12px;border:1px solid #aaa;border-radius:6px;background:white;cursor:pointer}.status{font:14px ui-monospace,monospace;background:#eee;padding:9px;border-radius:6px}small{color:#666}</style>
+<main><div class=card><h1 id=t>Teaching Visual</h1><p id=m></p><div class=diagram id=d></div><div class=controls><button onclick=prev()>Previous</button><button onclick=play() id=p>Play</button><button onclick=next()>Next</button><button onclick=reset()>Reset</button></div><div class=status id=s></div></div></main>
+<script>
+const C=[
+['01','Transistor Operation and Logic Gates','Switching states combine to form logic gates.',['Input','Transistor switch','Logic output']],
+['02','Memory Circuits and Latches','Feedback allows a circuit to retain state.',['Set / Reset','Latch','Feedback','Q']],
+['03','Dynamic Random-Access Memory','DRAM uses rows, columns, sensing, and refresh.',['Row address','Word line + cells','Sense amplifier','Column access']],
+['04','CPU Operation','Registers, arithmetic, control, and memory form a CPU datapath.',['Registers','ALU','Memory','Control']],
+['05','Clock Signals and Processor Step Sequencing','Clock edges define synchronous state-update points.',['Clock edge','State A','State B','State C']],
+['06','CPU Execution','Instruction execution follows a sequence of processor states.',['Fetch','Decode','Execute','Next']],
+['07','Variable Sizes and Data Types','Bit width determines storage and representable patterns.',['8 bits','16 bits','32 bits','64 bits']],
+['08','Programs and Processes','A process is an executing instance of a program with state and resources.',['Program image','Process state','Address space','CPU']],
+['09','Application Binary Interface','An ABI specifies binary conventions between callers and callees.',['Caller','Arguments / registers','ABI contract','Callee']],
+['10','The Call Stack','Function calls create and remove stack frames.',['Caller frame','Return address','Callee frame','Locals']],
+['11','Heap Allocation','Dynamic allocation divides heap storage into allocated and free regions.',['Free region','Allocator','Allocated block','Free region']],
+['12','Arrays and Dynamic Collections','An array address is derived from a base, index, and element size.',['Base','Index × size','Element address','Element']],
+['13','Operating System Boundaries','System calls cross from user mode into kernel-controlled execution.',['User mode','System call','Kernel mode','Return']],
+['14','Interrupt Context Saving','Interrupt handling preserves processor state before handler execution.',['Running code','Save context','Interrupt handler','Restore / resume']],
+['15','Process Context and Context Switching','A context switch replaces the executing thread state.',['Thread A state','Save','Thread B state','Restore']],
+['16','Memory Protection','Translation and permissions determine whether an access is allowed.',['Virtual address','Translation','Permission check','Physical access / fault']],
+['17','CPU Scheduling','The scheduler selects runnable work for available CPUs.',['Runnable A/B/C','Scheduler','CPU','Next decision']],
+['18','Threads and Concurrency','Threads share process resources but retain independent execution state.',['Thread A','Shared address space','Thread B','Thread C']],
+['19','Race Conditions','Concurrent ordering can change the result of a shared-state update.',['Load','Modify','Store','Interleaving']],
+['20','Interprocess Communication','Processes exchange data through kernel or shared-memory mechanisms.',['Process A','IPC mechanism','Process B','Data']],
+['21','Shells and File-System Objects','A shell parses commands while pathname resolution selects file-system objects.',['Shell','Command / pathname','Path resolution','File-system object']]
+];
+let i=Math.max(0,C.findIndex(x=>location.hash==='#chapter-'+x[0]));let z=0,timer;
+function render(){let c=C[i];t.textContent='Chapter '+c[0]+' — '+c[1];m.innerHTML=c[2]+' <small>Step through the mechanism below.</small>';d.innerHTML='<div class=row>'+c[3].map((x,n)=>(n?'<span class=arrow>→</span>':'')+'<div class="box '+(n===z?'on':'')+'">'+x+'</div>').join('')+'</div>';s.textContent='Step '+(z+1)+' of '+c[3].length+' — observe the highlighted state.';location.hash='chapter-'+c[0]}
+function next(){z=(z+1)%C[i][3].length;render()}function prev(){z=(z+C[i][3].length-1)%C[i][3].length;render()}function reset(){z=0;render()}function play(){if(timer){clearInterval(timer);timer=0;p.textContent='Play'}else{timer=setInterval(next,1100);p.textContent='Pause'}}window.onhashchange=()=>{let n=C.findIndex(x=>location.hash==='#chapter-'+x[0]);if(n>=0){i=n;z=0;render()}};render();
+</script>
