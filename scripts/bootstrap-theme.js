@@ -6,14 +6,12 @@
   const get = () => localStorage.getItem(key) || "system";
   const resolved = mode => mode === "system" ? (media.matches ? "dark" : "light") : mode;
 
-  const apply = mode => {
-    root.setAttribute("data-bs-theme", resolved(mode));
-  };
+  const apply = mode => root.setAttribute("data-bs-theme", resolved(mode));
 
   const set = mode => {
     localStorage.setItem(key, mode);
     apply(mode);
-    document.querySelectorAll("#theme-controls [data-theme]").forEach(button => {
+    document.querySelectorAll("[data-theme]").forEach(button => {
       const selected = button.dataset.theme === mode;
       button.classList.toggle("active", selected);
       button.setAttribute("aria-pressed", String(selected));
@@ -23,7 +21,7 @@
   const controls = () => {
     if (document.getElementById("theme-controls")) return;
 
-    const header = document.getElementById("header");
+    const header = document.querySelector("header, #header, nav");
     if (!header) return;
 
     const controls = document.createElement("div");
@@ -36,7 +34,7 @@
       const button = document.createElement("button");
       button.type = "button";
       button.dataset.theme = mode;
-      button.className = "btn btn-outline-light";
+      button.className = "btn btn-outline-secondary btn-sm";
       button.textContent = mode[0].toUpperCase() + mode.slice(1);
       button.addEventListener("click", () => set(mode));
       controls.appendChild(button);
