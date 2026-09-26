@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block styles %}
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+  <link href="{{ 'css/fontawesome.min.css'|url }}" rel="stylesheet">
+  <link href="{{ 'css/brands.min.css'|url }}" rel="stylesheet">
+  <link href="{{ 'css/solid.min.css'|url }}" rel="stylesheet">
+  <link href="{{ 'css/v4-font-face.min.css'|url }}" rel="stylesheet">
+  <link href="{{ 'css/base.css'|url }}" rel="stylesheet">
+  {% for path in config.extra_css %}
+    <link href="{{ path|url }}" rel="stylesheet">
+  {% endfor %}
+{% endblock %}
+
+{% block repo %}{% endblock %}
+
+{% block footer %}
+  <footer class="book-footer">
+    <div class="container py-4">
+      <div class="row g-3 align-items-center">
+        <div class="col-md-8">
+          <div class="fw-semibold">{{ config.site_name }}</div>
+          <div class="small text-body-secondary">A university-level systems textbook from digital logic to cloud computing.</div>
+        </div>
+        <div class="col-md-4 text-md-end">
+          <a class="btn btn-sm btn-outline-secondary" href="{{ config.repo_url }}" target="_blank" rel="noopener noreferrer">
+            <i class="fa-brands fa-github me-1" aria-hidden="true"></i> Source repository
+          </a>
+        </div>
+      </div>
+    </div>
+  </footer>
+{% endblock %}
+
+{% block scripts %}
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwxH9j09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+  <script>
+    var base_url = {{ base_url|tojson }}, shortcuts = {{ config.theme.shortcuts|tojson }};
+  </script>
+  <script src="{{ 'js/base.js'|url }}"></script>
+  {% for script in config.extra_javascript %}
+    {{ script|script_tag }}
+  {% endfor %}
+{% endblock %}
