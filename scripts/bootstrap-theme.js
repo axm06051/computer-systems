@@ -3,50 +3,53 @@
   const media = window.matchMedia("(prefers-color-scheme: dark)");
   const root = document.documentElement;
 
-  const get = () => localStorage.getItem(key) || "system";
-  const resolved = mode => mode === "system" ? (media.matches ? "dark" : "light") : mode;
+  const mode = () => localStorage.getItem(key) || "system";
+  const resolved = value => value === "system" ? (media.matches ? "dark" : "light") : value;
+  const apply = value => root.setAttribute("data-bs-theme", resolved(value));
 
-  const apply = mode => root.setAttribute("data-bs-theme", resolved(mode));
-
-  const set = mode => {
-    localStorage.setItem(key, mode);
-    apply(mode);
-    document.querySelectorAll("[data-theme]").forEach(button => {
-      const selected = button.dataset.theme === mode;
+  const sync = () => {
+    const value = mode();
+    apply(value);
+    document.querySelectorAll("#theme-controls [data-theme]").forEach(button => {
+      const selected = button.dataset.theme === value;
       button.classList.toggle("active", selected);
       button.setAttribute("aria-pressed", String(selected));
     });
   };
 
-  const controls = () => {
+  const install = () => {
     if (document.getElementById("theme-controls")) return;
 
-    const header = document.querySelector("header, #header, nav");
-    if (!header) return;
+    const siteName = document.getElementById("site_name");
+    const host = siteName?.parentElement;
+    if (!host) return;
 
     const controls = document.createElement("div");
     controls.id = "theme-controls";
-    controls.className = "btn-group ms-auto";
+    controls.className = "btn-group";
     controls.setAttribute("role", "group");
     controls.setAttribute("aria-label", "Color theme");
 
-    for (const mode of ["light", "dark", "system"]) {
+    for (const value of ["light", "dark", "system"]) {
       const button = document.createElement("button");
       button.type = "button";
-      button.dataset.theme = mode;
+      button.dataset.theme = value;
       button.className = "btn btn-outline-secondary btn-sm";
-      button.textContent = mode[0].toUpperCase() + mode.slice(1);
-      button.addEventListener("click", () => set(mode));
+      button.textContent = value[0].toUpperCase() + value.slice(1);
+      button.addEventListener("click", () => {
+        localStorage.setItem(key, value);
+        sync();
+      });
       controls.appendChild(button);
     }
 
-    header.appendChild(controls);
-    set(get());
+    host.appendChild(controls);
+    sync();
   };
 
-  apply(get());
-  document.addEventListener("DOMContentLoaded", controls);
+  apply(mode());
+  document.addEventListener("DOMContentLoaded", install);
   media.addEventListener("change", () => {
-    if (get() === "system") apply("system");
+    if (mode() === "system") sync();
   });
 })();
