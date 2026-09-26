@@ -53,20 +53,8 @@ nav:
       - N. End-to-End Systems Capstones: APPENDIX-N-SYSTEMS-CAPSTONES.md
 
 theme:
-  name: mkdocs
-  custom_dir: overrides
-  navigation_depth: 4
-  color_mode: auto
-  user_color_mode_toggle: true
-  nav_style: light
-  highlightjs: true
-  hljs_style: github
-  hljs_style_dark: github-dark
-  shortcuts:
-    help: 191
-    next: 78
-    previous: 80
-    search: 83
+  name: null
+  custom_dir: theme
 
 plugins:
   - search
@@ -84,10 +72,6 @@ markdown_extensions:
           class: mermaid
           format: !!python/name:pymdownx.superfences.fence_code_format
   - toc
-
-extra_css:
-  - stylesheets/bootstrap-book.css
-  - stylesheets/book-interactive.css
 
 extra_javascript:
   - scripts/book.js
