@@ -1,17 +1,27 @@
-/* Deliberately restrained styling. Material for MkDocs owns the color system. */
+/*
+ * Minimal book styling.
+ * Material for MkDocs owns palette state and colors.
+ * Bootstrap supplies utilities/components; this file only controls layout and type.
+ */
 
-html,
+html {
+  scroll-behavior: auto;
+}
+
 body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
-.md-header,
-.md-tabs {
-  box-shadow: none;
+.md-grid {
+  max-width: 72rem;
 }
 
-.md-tabs__link {
-  opacity: 1;
+.md-main__inner {
+  margin-top: 1rem;
+}
+
+.md-content {
+  max-width: 52rem;
 }
 
 .md-content h1,
@@ -19,26 +29,27 @@ body {
 .md-content h3,
 .md-content h4 {
   font-weight: 600;
+  letter-spacing: 0;
 }
 
 .md-content h1 {
-  border-bottom: 1px solid var(--md-default-fg-color--lightest);
   padding-bottom: 0.35rem;
+  border-bottom: 1px solid var(--md-default-fg-color--lightest);
 }
 
 .md-content a {
   text-decoration: underline;
+  text-underline-offset: 0.15em;
 }
 
 .md-typeset code {
   border: 1px solid var(--md-default-fg-color--lightest);
-  border-radius: 0;
-  background: var(--md-code-bg-color);
+  border-radius: 0.15rem;
 }
 
 .md-typeset pre > code {
   border: 1px solid var(--md-default-fg-color--lightest);
-  border-radius: 0;
+  border-radius: 0.15rem;
 }
 
 .md-typeset table:not([class]) {
@@ -47,20 +58,23 @@ body {
 }
 
 .md-typeset table:not([class]) th {
-  background: var(--md-code-bg-color);
+  background: var(--md-default-bg-color--light);
 }
 
 .md-typeset .admonition,
 .md-typeset details {
-  border-radius: 0;
+  border-radius: 0.15rem;
   box-shadow: none;
 }
 
-.md-sidebar__scrollwrap {
-  scrollbar-width: auto;
+.md-header,
+.md-tabs,
+.md-footer,
+.md-footer-meta {
+  box-shadow: none;
 }
 
-/* Bootstrap must not introduce visual transitions or fades into the book UI. */
+/* Keep Bootstrap from adding presentation effects that conflict with the book. */
 *,
 *::before,
 *::after {
@@ -69,5 +83,24 @@ body {
 }
 
 .fade {
-  opacity: 1 !important;
+  transition: none !important;
+}
+
+/* Preserve keyboard accessibility while keeping the presentation restrained. */
+:focus-visible {
+  outline: 2px solid var(--md-accent-fg-color);
+  outline-offset: 2px;
+}
+
+@media print {
+  .md-sidebar,
+  .md-header,
+  .md-tabs,
+  .md-footer {
+    display: none !important;
+  }
+
+  .md-content {
+    max-width: none;
+  }
 }
