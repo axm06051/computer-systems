@@ -69,21 +69,15 @@ theme:
       primary: white
       accent: black
       toggle:
-        icon: material/weather-sunny
+        icon: material/weather-night
         name: Switch to dark mode
     - media: "(prefers-color-scheme: dark)"
       scheme: slate
-      primary: white
+      primary: black
       accent: white
       toggle:
-        icon: material/weather-night
+        icon: material/weather-sunny
         name: Switch to light mode
-    - scheme: default
-      primary: white
-      accent: black
-      toggle:
-        icon: material/monitor
-        name: Follow system preference
 
 plugins:
   - search
