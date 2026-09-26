@@ -4,6 +4,8 @@ A sequential manual series covering the computing stack from transistors to
 user-facing shells. Each manual assumes the reader has completed the manuals
 listed before it.
 
+**[Interactive assets](assets/index.html)** · **[GitHub repository](https://github.com/axm06051/computer-systems)**
+
 ## Table of Contents
 
 1. [Transistor Operation and Logic Gates](01-transistors.md)
