@@ -10,7 +10,7 @@ svg{display:block;width:100%;height:auto;background:#000}.wire{fill:none;stroke:
 label{min-width:130px;padding:10px 18px;border:1px solid #4d4e51;border-radius:7px;background:#151515;color:#fff;font-weight:650;text-align:center;cursor:pointer;user-select:none}
 .state{text-align:center;min-height:28px;margin-top:14px;color:#c6c9ce;font-size:16px}.note{max-width:850px;margin:12px auto 0;color:#aeb3bb;font-size:14px;line-height:1.45;text-align:center}
 .on,.active{display:none}
-#a:checked~.demo .a-control,#b:checked~.demo .b-control,#a:checked~.demo .a-current,#b:checked~.demo .b-current,#a:checked~.demo .output-current,#b:checked~.demo .output-current,#a:checked~.demo .return-current,#b:checked~.demo .return-current{opacity:1}
+#a:checked~.demo .a-control,#b:checked~.demo .b-control,#a:checked~.demo .a-current,#b:checked~.demo .b-current,#a:checked~.demo .return-current,#b:checked~.demo .return-current{opacity:1}
 #a:checked~.demo .ta,#b:checked~.demo .tb,#a:checked~.demo .ain,#b:checked~.demo .bin,#a:checked~.demo .output-node,#b:checked~.demo .output-node{stroke:#f5b900}
 #a:checked~.demo .off,#b:checked~.demo .off{display:none}#a:checked~.demo .on,#b:checked~.demo .on{display:inline}
 </style></head><body><main class="page"><h1>OR gate</h1><p class="intro">Either input can turn on its transistor path. A conducting path reaches the common output node and then RETURN.</p>
@@ -22,13 +22,13 @@ label{min-width:130px;padding:10px 18px;border:1px solid #4d4e51;border-radius:7
 <rect class="component ta" x="350" y="300" width="80" height="100" rx="10"/><text fill="#fff" font-size="19" font-weight="700" text-anchor="middle" x="390" y="338">Q1</text><text fill="#aeb3bb" font-size="15" text-anchor="middle" x="390" y="365">TRANSISTOR</text><path class="wire" d="M390 400 V475"/>
 <rect class="component tb" x="650" y="300" width="80" height="100" rx="10"/><text fill="#fff" font-size="19" font-weight="700" text-anchor="middle" x="690" y="338">Q2</text><text fill="#aeb3bb" font-size="15" text-anchor="middle" x="690" y="365">TRANSISTOR</text><path class="wire" d="M690 400 V475"/>
 <circle class="node ain" cx="150" cy="350" r="34"/><text fill="#fff" font-size="19" font-weight="700" text-anchor="middle" dominant-baseline="middle" x="150" y="350">A</text><path class="wire" d="M184 350 H350"/><text fill="#aeb3bb" font-size="16" x="225" y="333">BASE</text>
-<circle class="node bin" cx="930" cy="350" r="34"/><text fill="#fff" font-size="19" font-weight="700" text-anchor="middle" dominant-baseline="middle" x="930" y="350">B</text><path class="wire" d="M930 350 H730"/><text fill="#aeb3bb" font-size="16" text-anchor="end" x="875" y="333">BASE</text>
+<circle class="node bin" cx="930" cy="350" r="34"/><text fill="#fff" font-size="19" font-weight="700" text-anchor="middle" dominant-baseline="middle" x="930" y="350">B</text><path class="wire" d="M896 350 H730"/><text fill="#aeb3bb" font-size="16" text-anchor="end" x="875" y="333">BASE</text>
 <path class="wire" d="M390 475 V520 H690 V475"/><circle class="node output-node" cx="540" cy="520" r="10"/><path class="wire" d="M550 520 H770"/><text fill="#fff" font-size="21" font-weight="700" text-anchor="middle" x="850" y="515">OUTPUT</text><text fill="#aeb3bb" font-size="17" text-anchor="middle" x="850" y="540">common node</text>
 <path class="wire" d="M540 520 V570"/><path class="wire" d="M500 570 H580"/><path class="wire" d="M512 582 H568"/><path class="wire" d="M524 594 H556"/><text fill="#c6c9ce" font-size="19" font-weight="600" text-anchor="middle" x="540" y="635">RETURN</text>
 <path class="signal a-control" d="M150 350 H350"/><path class="signal b-control" d="M930 350 H730"/>
 <path class="signal a-current" d="M540 45 V95"/><path class="signal a-current" d="M540 170 V220 H390 V300"/><path class="signal a-current" d="M390 400 V475 V520 H540"/>
 <path class="signal b-current" d="M540 45 V95"/><path class="signal b-current" d="M540 170 V220 H690 V300"/><path class="signal b-current" d="M690 400 V475 V520 H540"/>
-<path class="signal output-current" d="M540 520 H770"/><path class="signal return-current" d="M540 520 V570"/>
+<path class="signal return-current" d="M540 520 V570"/>
 </svg>
 <div class="controls"><label for="a"><span class="off">Input A: OFF</span><span class="on">Input A: ON</span></label><label for="b"><span class="off">Input B: OFF</span><span class="on">Input B: ON</span></label></div>
 <div class="state"><span class="off">Both transistor paths are OFF. The load path is open.</span><span class="on">At least one input is ON. Its transistor path conducts.</span></div>
