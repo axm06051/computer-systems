@@ -53,16 +53,8 @@ nav:
       - N. End-to-End Systems Capstones: APPENDIX-N-SYSTEMS-CAPSTONES.md
 
 theme:
-  name: material
-  language: en
-  features:
-    - navigation.sections
-    - navigation.top
-    - navigation.indexes
-    - search.highlight
-  font: false
-  logo: null
-  favicon: null
+  name: mkdocs
+  navigation_depth: 4
 
 plugins:
   - search
@@ -83,10 +75,10 @@ markdown_extensions:
 
 extra_css:
   - https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css
-  - stylesheets/boring.css
+  - stylesheets/bootstrap-book.css
 
 extra_javascript:
   - https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js
-  - scripts/theme-mode.js
+  - scripts/bootstrap-theme.js
   - scripts/mathjax.js
   - https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js
