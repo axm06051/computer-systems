@@ -1,0 +1,85 @@
+.book-toolbar {
+  background: var(--bs-tertiary-bg);
+}
+
+.book-toolbar .btn.active {
+  color: var(--bs-emphasis-color);
+  background: var(--bs-secondary-bg);
+  border-color: var(--bs-border-color);
+}
+
+.book-progress-text {
+  min-width: 4rem;
+  text-align: right;
+}
+
+.book-outline {
+  background: var(--bs-tertiary-bg);
+}
+
+.book-outline a {
+  color: var(--bs-secondary-color);
+}
+
+.book-outline a:hover,
+.book-outline a:focus-visible {
+  color: var(--bs-emphasis-color);
+}
+
+.book-code {
+  margin: 1.25rem 0;
+}
+
+.book-code pre {
+  margin: 0;
+}
+
+.book-copy {
+  position: absolute;
+  top: .5rem;
+  right: .5rem;
+  opacity: .85;
+}
+
+.book-pager .btn {
+  max-width: 48%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.book-focus .navbar,
+.book-focus .bs-sidebar,
+.book-focus .book-outline,
+.book-focus .book-toolbar {
+  display: none !important;
+}
+
+.book-focus body > .container > .row > .col-md-9 {
+  width: 100%;
+  max-width: 100%;
+  margin: 0;
+  padding-inline: 1rem;
+}
+
+.book-focus .col-md-9[role="main"] > * {
+  max-width: 68rem;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.book-focus footer {
+  display: none;
+}
+
+@media (max-width: 575.98px) {
+  .book-progress-text {
+    width: 100%;
+    margin-left: 0 !important;
+    text-align: left;
+  }
+
+  .book-pager .btn {
+    max-width: 50%;
+  }
+}
