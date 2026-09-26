@@ -1,0 +1,27 @@
+html { scroll-padding-top: 5rem; }
+body { min-width: 320px; line-height: 1.7; }
+.navbar-brand { max-width: 34rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.book-sidebar { min-height: calc(100vh - 4.5rem); }
+.book-sidebar .nav-link { color: var(--bs-secondary-color); border-radius: .375rem; padding: .4rem .65rem; line-height: 1.35; }
+.book-sidebar .nav-link:hover, .book-sidebar .nav-link:focus-visible { color: var(--bs-emphasis-color); background: var(--bs-tertiary-bg); }
+.book-sidebar .nav-link.active { color: var(--bs-emphasis-color); background: var(--bs-primary-bg-subtle); font-weight: 600; }
+.book-reading { max-width: 56rem; margin: 0 auto; }
+.book-reading article > h1:first-child { margin-top: 0; font-size: clamp(2rem, 4vw, 3rem); letter-spacing: -.02em; }
+.book-reading article h2 { margin-top: 3rem; padding-bottom: .4rem; border-bottom: 1px solid var(--bs-border-color); }
+.book-reading article h3 { margin-top: 2.25rem; }
+.book-reading article img, .book-reading article svg { max-width: 100%; height: auto; }
+.book-reading article pre { padding: 1rem; overflow-x: auto; border: 1px solid var(--bs-border-color); border-radius: .5rem; background: var(--bs-tertiary-bg); }
+.book-reading article :not(pre) > code { padding: .12rem .35rem; border: 1px solid var(--bs-border-color); border-radius: .25rem; background: var(--bs-tertiary-bg); }
+.book-reading article table { width: 100%; margin: 1.25rem 0; border-collapse: collapse; }
+.book-reading article th, .book-reading article td { padding: .6rem .75rem; border: 1px solid var(--bs-border-color); vertical-align: top; }
+.book-reading article th { background: var(--bs-tertiary-bg); }
+.book-reading article blockquote { margin: 1.5rem 0; padding: .75rem 1rem; color: var(--bs-secondary-color); border-left: .25rem solid var(--bs-border-color); }
+.book-reading article .admonition, .book-reading article details { margin: 1.5rem 0; padding: 1rem; border: 1px solid var(--bs-border-color); border-radius: .5rem; background: var(--bs-tertiary-bg); }
+.book-toc ul { list-style: none; padding-left: 0; margin: 0; }
+.book-toc li { margin: .35rem 0; }
+.book-toc a { font-size: .875rem; color: var(--bs-secondary-color); text-decoration: none; }
+.book-toc a:hover { color: var(--bs-emphasis-color); }
+#book-search-results { position: sticky; top: 4.5rem; z-index: 1020; background: color-mix(in srgb, var(--bs-body-bg) 94%, transparent); backdrop-filter: blur(8px); }
+#book-search-results .list-group-item { background: var(--bs-body-bg); color: var(--bs-body-color); }
+@media (max-width: 991.98px) { .book-sidebar { min-height: auto; border-right: 0 !important; border-bottom: 1px solid var(--bs-border-color); } .book-sidebar nav { max-height: 45vh; overflow: auto; } }
+@media print { .navbar, .book-sidebar, .book-toc, #book-pager, footer { display: none !important; } .book-reading { max-width: none; } }
