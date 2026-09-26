@@ -80,5 +80,7 @@ extra_css:
 extra_javascript:
   - https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js
   - scripts/bootstrap-theme.js
+  - scripts/book.js
   - scripts/mathjax.js
   - https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js
+  - https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js
