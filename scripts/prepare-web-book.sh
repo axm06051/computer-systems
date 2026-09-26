@@ -12,5 +12,10 @@ for f in "$ROOT"/0[1-9]-*.md "$ROOT"/1[0-9]-*.md "$ROOT"/2[0-1]-*.md "$ROOT"/APP
     cp "$f" "$DOCS/"
 done
 
+# Teaching illustrations, animations, and interactive assets are part of the web edition.
+if [ -d "$ROOT/assets" ]; then
+    cp -R "$ROOT/assets" "$DOCS/"
+fi
+
 # The source README is the repository landing page; the generated web edition
 # uses the same content as its home page.

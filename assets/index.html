@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Interactive Assets — Computer Systems</title>
+  <style>
+    :root { color-scheme: dark; font-family: system-ui, -apple-system, "Segoe UI", sans-serif; }
+    * { box-sizing: border-box; }
+    body { margin: 0; background: #000; color: #fff; }
+    main { max-width: 900px; margin: 0 auto; padding: 48px 24px; }
+    h1 { margin: 0 0 8px; font-size: 32px; }
+    p { color: #aeb3bb; line-height: 1.5; }
+    #assets { margin-top: 28px; display: grid; gap: 12px; }
+    a { display: block; padding: 18px 20px; border: 1px solid #333; border-radius: 8px; color: #fff; text-decoration: none; background: #111; }
+    a:hover { border-color: #777; }
+    .name { font-weight: 650; }
+    .path { margin-top: 4px; color: #777; font: 13px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+    .status { color: #777; }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Interactive Assets</h1>
+    <p>Interactive teaching assets for <em>Computer Systems: From Logic Gates to Operating Systems</em>.</p>
+    <div id="assets" aria-live="polite"><p class="status">Loading assets…</p></div>
+  </main>
+  <script>
+    const owner = "axm06051";
+    const repo = "computer-systems";
+    const branch = "main";
+    const api = `https://api.github.com/repos/${owner}/${repo}/contents/assets?ref=${branch}`;
+    const root = document.getElementById("assets");
+
+    fetch(api)
+      .then(response => {
+        if (!response.ok) throw new Error(`GitHub API returned ${response.status}`);
+        return response.json();
+      })
+      .then(entries => {
+        const assets = entries
+          .filter(entry => entry.type === "file" && entry.name !== "index.html")
+          .sort((a, b) => a.name.localeCompare(b.name));
+
+        root.replaceChildren();
+        if (!assets.length) {
+          root.innerHTML = '<p class="status">No assets found.</p>';
+          return;
+        }
+
+        for (const asset of assets) {
+          const link = document.createElement("a");
+          const url = `./${encodeURIComponent(asset.name)}`;
+          link.href = url;
+          link.innerHTML = `<div class="name"></div><div class="path"></div>`;
+          link.querySelector(".name").textContent = asset.name.replace(/\.html$/i, "").replace(/[-_]+/g, " ");
+          link.querySelector(".path").textContent = `assets/${asset.name}`;
+          root.appendChild(link);
+        }
+      })
+      .catch(error => {
+        root.innerHTML = `<p class="status">Unable to load the asset list: ${error.message}</p>`;
+      });
+  </script>
+</body>
+</html>

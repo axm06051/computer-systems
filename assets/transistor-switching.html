@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Transistor Switching</title>
+<style>
+:root{font-family:system-ui,-apple-system,"Segoe UI",sans-serif;background:#000;color:#fff}
+*{box-sizing:border-box}
+body{margin:0;background:#000}
+.page{max-width:1125px;margin:auto;padding:28px 0 24px}
+h1{margin:0 24px 6px;font-size:27px;font-weight:650}
+.intro{margin:0 24px 20px;color:#aeb3bb}
+#switch{position:absolute;opacity:0;pointer-events:none}
+.demo{position:relative}
+svg{display:block;width:100%;height:auto;background:#000}
+.base,.terminal{fill:none;stroke:#62656a;stroke-width:6;stroke-linecap:round;stroke-linejoin:round}
+.circle{fill:none;stroke:#3f4145;stroke-width:5}
+.junction{fill:#62656a}
+.signal-off,.signal-on,.control-signal{fill:none;stroke:#f5b900;stroke-width:6;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:14 22;animation:flow .9s linear infinite}
+.signal-off{opacity:1}
+.signal-on{opacity:0}
+.control-signal{opacity:0;animation-name:flow-up}
+@keyframes flow{to{stroke-dashoffset:-36}}
+@keyframes flow-up{to{stroke-dashoffset:36}}
+.state{min-height:28px;margin:14px 24px 0;text-align:center;color:#c6c9ce}
+.control{display:flex;justify-content:center;margin-top:12px}
+.button{display:inline-block;padding:10px 18px;border:1px solid #4d4e51;border-radius:7px;background:#151515;color:#fff;font:inherit;font-weight:650;cursor:pointer;user-select:none}
+.button:hover{background:#222}
+.on-only{display:none}
+#switch:checked~.demo .signal-off{opacity:0}
+#switch:checked~.demo .signal-on{opacity:1}
+#switch:checked~.demo .control-signal{opacity:1}
+#switch:checked~.demo .junction{fill:#f5b900}
+#switch:checked~.demo .state{color:#f5b900}
+#switch:checked~.demo .off-only{display:none}
+#switch:checked~.demo .on-only{display:inline}
+.note{max-width:720px;margin:12px auto 0;padding:0 24px;text-align:center;color:#707277;font-size:13px;line-height:1.45}
+@media(prefers-reduced-motion:reduce){.signal-off,.signal-on,.control-signal{animation:none}}
+</style>
+</head>
+<body>
+<main class="page">
+<h1>Transistor switching</h1>
+<p class="intro">The control changes whether the transistor conducts.</p>
+<input id="switch" type="checkbox">
+<section class="demo">
+<svg viewBox="0 0 1125 417" role="img" aria-label="Simplified transistor switching model">
+<path class="base" d="M0 160 H478"/>
+<path class="base" d="M646 160 H1125"/>
+<circle class="circle" cx="557" cy="189" r="113"/>
+<path class="terminal" d="M478 160 L535 220 H579 L646 160"/>
+<path class="terminal" d="M516 220 H598"/>
+<path class="terminal" d="M557 220 V360"/>
+<circle class="junction" cx="415" cy="160" r="8"/>
+<circle class="junction" cx="710" cy="160" r="8"/>
+<circle class="junction" cx="557" cy="360" r="8"/>
+<path class="control-signal" d="M557 360 V220"/>
+<path class="signal-off" d="M0 160 H478 L535 220"/>
+<path class="signal-on" d="M0 160 H478 L535 220"/>
+<path class="signal-on" d="M535 220 H579 L646 160 H1125" style="animation-delay:-.45s"/>
+</svg>
+<div class="state"><span class="off-only">OFF — the input signal reaches the transistor but the conducting path is open.</span><span class="on-only">ON — the transistor conducts and current can flow through the external path.</span></div>
+<div class="control"><label class="button" for="switch"><span class="off-only">Turn ON</span><span class="on-only">Turn OFF</span></label></div>
+<p class="note">The yellow paths represent current in a simplified transistor-switching model.</p>
+</section>
+</main>
+</body>
+</html>
