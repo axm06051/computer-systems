@@ -1,0 +1,83 @@
+site_name: "Computer Systems: From Logic Gates to Operating Systems"
+site_description: A bottom-up introduction to processors, memory, processes, concurrency, networking, GPUs, virtualization, and operating systems.
+site_author: Adrian Mróz
+
+docs_dir: .book-docs
+
+nav:
+  - Home: index.md
+  - Core Manuals:
+      - 01. Transistor Operation and Logic Gates: 01-transistors.md
+      - 02. Memory Circuits and Latches: 02-memory.md
+      - 03. Dynamic Random-Access Memory: 03-dram.md
+      - 04. CPU Operation: 04-cpu.md
+      - 05. Clock Signals and Processor Step Sequencing: 05-clocking.md
+      - 06. CPU Execution: 06-cpu-execution.md
+      - 07. Variable Sizes and Data Types: 07-variable-sizes.md
+      - 08. Programs and Processes: 08-programs-and-processes.md
+      - 09. Application Binary Interface: 09-application-binary-interface.md
+      - 10. The Call Stack: 10-the-call-stack.md
+      - 11. Heap Allocation: 11-heap-allocation.md
+      - 12. Arrays and Dynamic Collections: 12-arrays-and-dynamic-collections.md
+      - 13. Operating System Boundaries: 13-operating-system-boundaries.md
+      - 14. Interrupt Context Saving: 14-interrupt-context-saving.md
+      - 15. Process Context and Context Switching: 15-process-context.md
+      - 16. Memory Protection: 16-memory-protection.md
+      - 17. CPU Scheduling: 17-cpu-scheduling.md
+      - 18. Threads and Concurrency: 18-threads-and-concurrency.md
+      - 19. Race Conditions: 19-race-conditions.md
+      - 20. Interprocess Communication: 20-interprocess-communication.md
+      - 21. Shells and File-System Objects: 21-shells-and-file-system-objects.md
+  - Appendices:
+      - A. Glossary: APPENDIX-A-GLOSSARY.md
+      - B. Syllabus: APPENDIX-B-SYLLABUS.md
+      - C. Bibliography: APPENDIX-C-BIBLIOGRAPHY.md
+      - D. Worked Examples: APPENDIX-D-WORKED-EXAMPLES.md
+      - E. Animations and Practice: APPENDIX-E-ANIMATIONS-AND-PRACTICE.md
+      - F. GPUs and Heterogeneous Computing: APPENDIX-F-GPUS.md
+      - G. Networking: APPENDIX-G-NETWORKING.md
+      - H. Broadcast and IP Media: APPENDIX-H-BROADCAST-IP-MEDIA.md
+      - I. Virtualization and Cloud: APPENDIX-I-VIRTUALIZATION-CONTAINERS-CLOUD.md
+      - J. Storage, I/O, DMA, and PCIe: APPENDIX-J-STORAGE-IO-DMA-PCIE.md
+      - K. Distributed and Real-Time Systems: APPENDIX-K-DISTRIBUTED-REAL-TIME-SYSTEMS.md
+      - L. Troubleshooting: APPENDIX-L-TROUBLESHOOTING.md
+      - M. Coverage Audit: APPENDIX-M-COVERAGE-AUDIT.md
+
+theme:
+  name: material
+  language: en
+  features:
+    - navigation.sections
+    - navigation.top
+    - navigation.indexes
+    - search.suggest
+    - search.highlight
+    - content.code.copy
+    - toc.follow
+  palette:
+    - media: '(prefers-color-scheme: light)'
+      scheme: default
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - media: '(prefers-color-scheme: dark)'
+      scheme: slate
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+
+plugins:
+  - search
+
+markdown_extensions:
+  - admonition
+  - attr_list
+  - pymdownx.details
+  - pymdownx.highlight
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - toc:
+      permalink: true
