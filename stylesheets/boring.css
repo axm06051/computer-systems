@@ -116,3 +116,69 @@ body {
 .fade {
   opacity: 1 !important;
 }
+
+/* Material's dark scheme must override the intentionally plain light defaults. */
+[data-md-color-scheme="slate"] {
+  --md-primary-fg-color: #000000;
+  --md-primary-bg-color: #ffffff;
+  --md-accent-fg-color: #ffffff;
+}
+
+[data-md-color-scheme="slate"] body,
+[data-md-color-scheme="slate"] .md-main {
+  background: #121212;
+  color: #ffffff;
+}
+
+[data-md-color-scheme="slate"] .md-header {
+  background: #000000;
+  color: #ffffff;
+  border-bottom-color: #333333;
+}
+
+[data-md-color-scheme="slate"] .md-header__button,
+[data-md-color-scheme="slate"] .md-header__topic,
+[data-md-color-scheme="slate"] .md-tabs__link,
+[data-md-color-scheme="slate"] .md-search__icon {
+  color: #ffffff;
+}
+
+[data-md-color-scheme="slate"] .md-tabs {
+  background: #1c1c1c;
+  border-bottom-color: #333333;
+}
+
+[data-md-color-scheme="slate"] .md-content a {
+  color: #ffffff;
+}
+
+[data-md-color-scheme="slate"] .md-content a:hover {
+  color: #cccccc;
+}
+
+[data-md-color-scheme="slate"] .md-typeset code {
+  border-color: #444444;
+  background: #1c1c1c;
+}
+
+[data-md-color-scheme="slate"] .md-typeset pre > code {
+  border-color: #444444;
+}
+
+[data-md-color-scheme="slate"] .md-typeset table:not([class]) {
+  border-color: #444444;
+}
+
+[data-md-color-scheme="slate"] .md-typeset table:not([class]) th {
+  background: #2a2a2a;
+  color: #ffffff;
+}
+
+[data-md-color-scheme="slate"] .md-footer {
+  background: #1c1c1c;
+  color: #ffffff;
+}
+
+[data-md-color-scheme="slate"] .md-footer-meta {
+  background: #000000;
+}
