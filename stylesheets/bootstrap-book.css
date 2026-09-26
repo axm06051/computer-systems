@@ -1,9 +1,9 @@
-/* Computer Systems — Bootstrap 5.3.8 book layout */
+/* Bootstrap 5.3.8 e-book presentation. Bootstrap owns color modes and components. */
 
 :root {
-  --book-sidebar: 19rem;
-  --book-content: 58rem;
-  --book-gutter: clamp(1rem, 3vw, 3rem);
+  --book-sidebar: 18rem;
+  --book-reading: 52rem;
+  --book-gutter: clamp(1rem, 3vw, 2.5rem);
 }
 
 html {
@@ -11,39 +11,29 @@ html {
 }
 
 body {
-  margin: 0;
+  min-width: 320px;
   color: var(--bs-body-color);
   background: var(--bs-body-bg);
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   line-height: 1.7;
 }
 
-body::before {
-  display: none;
-}
-
-/* Header */
 .navbar.fixed-top {
-  position: sticky;
-  top: 0;
   min-height: 4rem;
   background: var(--bs-body-bg) !important;
   border-bottom: 1px solid var(--bs-border-color);
-  box-shadow: none;
+  box-shadow: 0 .125rem .5rem rgba(0, 0, 0, .04);
 }
 
 .navbar.fixed-top > .container {
   max-width: 100%;
-  min-height: 4rem;
   padding-inline: var(--book-gutter);
 }
 
 .navbar-brand {
-  max-width: 26rem;
-  margin-right: 2rem;
+  max-width: 30rem;
   overflow: hidden;
   color: var(--bs-emphasis-color) !important;
-  font-size: 1rem;
   font-weight: 650;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -62,41 +52,13 @@ body::before {
 }
 
 .navbar .dropdown-menu {
-  margin-top: .5rem;
-  padding: .4rem;
   background: var(--bs-body-bg);
-  border: 1px solid var(--bs-border-color);
-  box-shadow: var(--bs-box-shadow-sm);
-}
-
-.navbar .dropdown-item {
-  border-radius: .3rem;
-}
-
-#theme-controls {
-  display: inline-flex;
-  align-items: center;
-  margin-left: .75rem;
-}
-
-#theme-controls .btn {
-  color: var(--bs-secondary-color);
   border-color: var(--bs-border-color);
 }
 
-#theme-controls .btn:hover,
-#theme-controls .btn:focus-visible,
-#theme-controls .btn.active {
-  color: var(--bs-emphasis-color);
-  background: var(--bs-tertiary-bg);
-  border-color: var(--bs-border-color);
-}
-
-/* Main shell */
 body > .container {
   width: 100%;
   max-width: none;
-  margin: 0;
   padding: 0;
 }
 
@@ -114,12 +76,11 @@ body > .container > .row > .col-md-3 {
 
 body > .container > .row > .col-md-9 {
   width: auto;
-  max-width: calc(var(--book-content) + 2 * var(--book-gutter));
+  max-width: calc(var(--book-reading) + 2 * var(--book-gutter));
   flex: 1 1 auto;
-  padding: 0 var(--book-gutter) 5rem;
+  padding: 0 var(--book-gutter) 4rem;
 }
 
-/* Left navigation */
 .bs-sidebar.affix {
   position: sticky;
   top: 4rem;
@@ -132,21 +93,8 @@ body > .container > .row > .col-md-9 {
 
 .bs-sidebar.card {
   max-height: none;
-  overflow: visible;
   background: transparent !important;
   border: 0;
-}
-
-.bs-sidebar .navbar-toggler {
-  width: 100%;
-  margin-bottom: .5rem;
-  color: var(--bs-secondary-color);
-  background: var(--bs-tertiary-bg);
-  border: 1px solid var(--bs-border-color);
-}
-
-.bs-sidebar .nav {
-  gap: 1px;
 }
 
 .bs-sidebar .nav-link {
@@ -174,18 +122,17 @@ body > .container > .row > .col-md-9 {
   border-left: 1px solid var(--bs-border-color);
 }
 
-/* Reading column */
 .col-md-9[role="main"] {
   min-width: 0;
+  padding-top: 2.5rem;
 }
 
 .col-md-9[role="main"] > * {
-  max-width: var(--book-content);
+  max-width: var(--book-reading);
 }
 
 .col-md-9[role="main"] > h1:first-child {
   margin-top: 0;
-  padding-top: 3.5rem;
 }
 
 h1,
@@ -195,22 +142,23 @@ h4,
 h5,
 h6 {
   color: var(--bs-emphasis-color);
-  font-weight: 650;
   line-height: 1.25;
 }
 
 h1 {
-  margin-bottom: 1.75rem;
+  margin-bottom: 1.5rem;
   font-size: clamp(2rem, 4vw, 3rem);
-  letter-spacing: -.025em;
+  font-weight: 650;
+  letter-spacing: -.02em;
 }
 
 h2 {
-  margin-top: 3.25rem;
+  margin-top: 3rem;
   margin-bottom: 1rem;
-  padding-bottom: .35rem;
+  padding-bottom: .4rem;
   border-bottom: 1px solid var(--bs-border-color);
   font-size: 1.65rem;
+  font-weight: 650;
 }
 
 h3 { margin-top: 2.25rem; font-size: 1.25rem; }
@@ -238,16 +186,6 @@ a {
   color: var(--bs-link-color);
 }
 
-a:hover {
-  color: var(--bs-link-hover-color);
-}
-
-hr {
-  border-color: var(--bs-border-color);
-  opacity: 1;
-}
-
-/* Code, tables, media */
 pre {
   padding: 1rem 1.1rem;
   overflow-x: auto;
@@ -261,7 +199,6 @@ pre code {
   color: inherit;
   background: transparent;
   border: 0;
-  white-space: pre;
 }
 
 :not(pre) > code {
@@ -273,15 +210,8 @@ pre code {
 }
 
 table {
-  display: block;
   width: 100%;
   overflow-x: auto;
-  border-collapse: collapse;
-}
-
-thead th {
-  color: var(--bs-emphasis-color);
-  background: var(--bs-tertiary-bg);
 }
 
 td,
@@ -291,18 +221,19 @@ th {
   vertical-align: top;
 }
 
+thead th {
+  color: var(--bs-emphasis-color);
+  background: var(--bs-tertiary-bg);
+}
+
 blockquote {
   padding: .5rem 1rem;
   color: var(--bs-secondary-color);
   border-left: .25rem solid var(--bs-border-color);
 }
 
-img {
-  max-width: 100%;
-  height: auto;
-}
-
-.admonition {
+.admonition,
+details {
   margin: 1.5rem 0;
   padding: 1rem 1.15rem;
   background: var(--bs-tertiary-bg);
@@ -310,38 +241,24 @@ img {
   border-radius: .5rem;
 }
 
-/* Footer */
-footer {
-  margin: 0;
-  padding: 2rem var(--book-gutter);
-  color: var(--bs-secondary-color);
-  text-align: left;
+img,
+svg {
+  max-width: 100%;
+}
+
+.book-footer {
+  margin-top: 2rem;
   border-top: 1px solid var(--bs-border-color);
+  background: var(--bs-tertiary-bg);
 }
 
-footer p {
-  max-width: var(--book-content);
-  margin: 0;
-}
-
-/* Small screens */
 @media (max-width: 991.98px) {
   .navbar.fixed-top > .container {
     padding-inline: 1rem;
   }
 
   .navbar-brand {
-    max-width: calc(100vw - 7rem);
-    margin-right: 0;
-  }
-
-  #theme-controls {
-    margin: .5rem 0;
-  }
-
-  .navbar-collapse {
-    max-height: calc(100vh - 4rem);
-    overflow-y: auto;
+    max-width: calc(100vw - 5rem);
   }
 
   body > .container > .row > .col-md-3 {
@@ -363,26 +280,16 @@ footer p {
     padding-inline: 1rem;
   }
 
-  .col-md-9[role="main"] > h1:first-child {
+  .col-md-9[role="main"] {
     padding-top: 2rem;
-  }
-}
-
-@media (max-width: 575.98px) {
-  #theme-controls .btn {
-    padding: .25rem .45rem;
-    font-size: .75rem;
-  }
-
-  h1 {
-    font-size: 2rem;
   }
 }
 
 @media print {
   .navbar,
   .bs-sidebar,
-  #theme-controls {
+  .book-toolbar,
+  .book-outline {
     display: none !important;
   }
 
