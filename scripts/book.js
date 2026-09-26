@@ -2,11 +2,10 @@
   const THEME_KEY = "computer-systems:theme";
   const root = document.documentElement;
   const media = window.matchMedia("(prefers-color-scheme: dark)");
+  const getTheme = () => localStorage.getItem(THEME_KEY) || "system";
+  const resolved = mode => mode === "system" && media.matches ? "dark" : mode === "system" ? "light" : mode;
 
-  const resolveTheme = mode => mode === "system" ? (media.matches ? "dark" : "light") : mode;
-  const applyTheme = mode => root.dataset.theme = resolveTheme(mode);
-  const savedTheme = () => localStorage.getItem(THEME_KEY) || "system";
-
+  const applyTheme = mode => { root.dataset.theme = resolved(mode); };
   const setTheme = mode => {
     localStorage.setItem(THEME_KEY, mode);
     applyTheme(mode);
@@ -15,9 +14,14 @@
       button.classList.toggle("active", selected);
       button.setAttribute("aria-pressed", String(selected));
     });
+    document.querySelectorAll("[data-theme-choice]").forEach(button => {
+      const selected = button.dataset.themeChoice === mode;
+      button.classList.toggle("active", selected);
+      button.setAttribute("aria-pressed", String(selected));
+    });
   };
 
-  applyTheme(savedTheme());
+  applyTheme(getTheme());
 
   document.addEventListener("DOMContentLoaded", () => {
     const menu = document.querySelector(".menu-toggle");
@@ -27,10 +31,10 @@
       menu.setAttribute("aria-expanded", String(open));
     });
 
-    document.querySelectorAll("[data-theme]").forEach(button => {
-      button.addEventListener("click", () => setTheme(button.dataset.theme));
+    document.querySelectorAll("[data-theme-choice]").forEach(button => {
+      button.addEventListener("click", () => setTheme(button.dataset.themeChoice));
     });
-    setTheme(savedTheme());
+    setTheme(getTheme());
 
     const searchDialog = document.querySelector("#search-dialog");
     const searchButton = document.querySelector(".search-button");
@@ -117,5 +121,5 @@
     });
   });
 
-  media.addEventListener("change", () => { if (savedTheme() === "system") applyTheme("system"); });
+  media.addEventListener("change", () => { if (getTheme() === "system") applyTheme("system"); });
 })();
